@@ -3,7 +3,6 @@ const fetch = require('node-fetch')
 const readline = require('readline')
 
 const ROOT = 'https://www.rottentomatoes.com/'
-console.log
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -33,12 +32,13 @@ const fetchMovies = movie => {
 					.then(res => res.text())
 					.then(body => {
 						const $ = cheerio.load(body)
-						const score = +$('.mop-ratings-wrap__percentage').first().text().trim().replace('%', '')
+						const $pct = $('.mop-ratings-wrap__percentage')
 
-						if (Number.isNaN(score)) {
+						if (!$pct.length) {
 							console.log('Hold your horses! No score yet')
 							rl.close()
 						} else {
+							const score = +$pct.first().text().trim().replace('%', '')
 							rl.question('What score is considered passing?\n', num => {
 								console.log(score > num ? 'PASS 🎉' : 'FAIL 😢')
 								rl.question('Wanna spoil it? (y/n)\n', repl => {
