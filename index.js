@@ -19,8 +19,8 @@ const fetchMovies = movie => {
 	  	}
 
 			const movieNames = moviesArr
-				.map((movie, i) => `${i}) ${movie.name} (${movie.year})`)
-				.concat(`${moviesArr.length}) Try again`)
+				.map((movie, i) => `${i + 1}) ${movie.name} (${movie.year})`)
+				.concat(`${moviesArr.length + 1}) Try again`)
 
 			rl.question(`${movieNames.join('\n')}\n`, index => {
 				if (+index === moviesArr.length) {
