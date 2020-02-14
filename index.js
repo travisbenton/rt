@@ -23,11 +23,13 @@ const fetchMovies = movie => {
 				.concat(`${moviesArr.length + 1}) Try again`)
 
 			rl.question(`${movieNames.join('\n')}\n`, index => {
-				if (+index === moviesArr.length) {
+				const indexAsNum = parseInt(index, 10)
+
+				if (indexAsNum === moviesArr.length + 1) {
 					return rl.question('Ok, whatcha got?\n', movie => fetchMovies(movie))
 				}
-				const url = moviesArr[index].url
 
+				const url = moviesArr[indexAsNum - 1].url
 				const moviePage = fetch(`${ROOT}${url}`)
 					.then(res => res.text())
 					.then(body => {
