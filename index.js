@@ -21,7 +21,7 @@ const fetchMovies = async (movie) => {
 		.map((movie, i) => `${i + 1}) ${movie.name} (${movie.year})`)
 		.concat(`${moviesArr.length + 1}) Try again`)
 
-	rl.question(`${movieNames.join('\n')}\n`, index => {
+	rl.question(`${movieNames.join('\n')}\n`, async (index) => {
 		const indexAsNum = parseInt(index, 10)
 
 		if (indexAsNum === moviesArr.length + 1) {
